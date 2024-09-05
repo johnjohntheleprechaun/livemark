@@ -7,6 +7,10 @@
         "sourceMap": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "strict": true
-    }
+        "strict": true,
+        "skipLibCheck": true
+    },
+    "files": [
+        "src/index.ts"
+    ]
 }
