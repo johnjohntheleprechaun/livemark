@@ -1,3 +1,6 @@
+import {baseKeymap} from "prosemirror-commands";
+import {keymap} from "prosemirror-keymap";
+import {defaultMarkdownParser, schema} from "prosemirror-markdown";
 import {EditorState, Transaction} from "prosemirror-state";
 import {EditorView} from "prosemirror-view";
 
@@ -7,10 +10,16 @@ export class LiveMark {
     view: EditorView;
     constructor(targetElement: HTMLElement) {
         this.targetElement = targetElement;
-        this.state = EditorState.create({});
+        this.state = EditorState.create({
+            schema: schema,
+            doc: defaultMarkdownParser.parse("# Hello World"),
+            plugins: [
+                keymap(baseKeymap),
+            ],
+        });
         this.view = new EditorView(this.targetElement, {
             state: this.state,
-            dispatchTransaction: this.transactionHandler,
+            dispatchTransaction: this.transactionHandler.bind(this),
         });
     }
     transactionHandler(transaction: Transaction) {
