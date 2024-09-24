@@ -3,6 +3,7 @@ import {keymap} from "prosemirror-keymap";
 import {defaultMarkdownParser, schema} from "prosemirror-markdown";
 import {EditorState, Transaction} from "prosemirror-state";
 import {EditorView} from "prosemirror-view";
+import {livemarkInput} from "./input-rules";
 
 export class LiveMark {
     targetElement: HTMLElement;
@@ -15,6 +16,7 @@ export class LiveMark {
             doc: defaultMarkdownParser.parse("# Hello World"),
             plugins: [
                 keymap(baseKeymap),
+                livemarkInput,
             ],
         });
         this.view = new EditorView(this.targetElement, {
