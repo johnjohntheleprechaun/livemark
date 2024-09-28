@@ -5,13 +5,13 @@ import {Transaction} from "prosemirror-state";
 export const livemarkInput = inputRules({
     rules: [
         textblockTypeInputRule(/^(#{1,6})\s$/, schema.nodes.heading, match => ({level: match[1].length})),
-        wrappingInputRule(/^>\s/, schema.nodes.blockquote),
+        wrappingInputRule(/^>\s$/, schema.nodes.blockquote),
         textblockTypeInputRule(/^```$/, schema.nodes.code_block),
-        wrappingInputRule(/^\s*(-|\+|\*)\s/, schema.nodes.bullet_list),
-        wrappingInputRule(/^[0-9](?:\.|\))\s/, schema.nodes.ordered_list),
+        wrappingInputRule(/^\s*(-|\+|\*)\s$/, schema.nodes.bullet_list),
+        wrappingInputRule(/^[0-9](?:\.|\))\s$/, schema.nodes.ordered_list),
         // live italic/bold
         new InputRule(
-            /((?:\*|_){1,3})[^*_]+\1([^*_])/,
+            /((?:\*|_){1,3})[^*_]+\1([^*_])?$/,
             (state, match, start, end): Transaction => {
                 const tr = state.tr;
                 console.log(tr);
